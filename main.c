@@ -9,7 +9,7 @@
 void seg_display(int16_t value , int16_t valSeg, int16_t t){
 	
 	int digit1;
-	unsigned char SEGS[6] =   {0xEF, 0xF7, 0x7F,0xFB , 0xFD, 0xDF};
+	unsigned char SEGS[6] =   {0xF7, 0xEF, 0xFE, 0xDF, 0xBF, 0xFB};
 	int8_t digit;
 	digit = value / 1000;
 	
@@ -57,11 +57,10 @@ int main(void){
 	while(1) {
 		number = ScanKey();
 		if(number == 3){
-			if(timer < 55)
-				timer = timer + 5;
+				timer = timer + 10;
 		}else if(number ==8){
 			if(timer > 5)
-				timer = timer  -5;
+				timer = timer - 10;
 		}
 		seg_display(i, seg, timer);
         if(i==0)
