@@ -70,6 +70,5 @@ int main(void){
 				else
 					seg++;
 		i--;
-		seg++;
 	}
 }
