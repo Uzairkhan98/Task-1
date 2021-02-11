@@ -6,11 +6,10 @@
 #include "Scankey.h"
 #include "LCD.h"
 
-#define SEGS =   {0b11101111, 0b111101111, 0b01111111, 0b11111011, 0b11111101, 0b11011111} 
-
 void seg_display(int16_t value , int16_t valSeg){
 	
 	int digit1, t;
+	unsigned char SEGS[6] =   {0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
 	int8_t digit;
 	digit = value / 1000;
 	
@@ -59,7 +58,9 @@ int main(void){
         if(i==0)
             i = 70;
         if(seg==6)
-            seg = -1;
+            seg = 0;
+				else
+					seg++;
 		number = ScanKey();
 		i--;
 		seg++;
