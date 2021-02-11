@@ -79,8 +79,7 @@ int main(void){
             i = 70;
         if(seg==6)
             seg = 0;
-				else
-					seg++;
+				seg++;
 		i--;
 	}
 }
