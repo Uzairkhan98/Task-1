@@ -6,6 +6,19 @@
 #include "Scankey.h"
 #include "LCD.h"
 
+void seven_segment_rotate(unsigned char num, unsigned char number) {
+	unsigned char temp,i;
+	temp = number;
+	for(i=0; i<8; i++) {
+		if((temp&0x01)==0x01)
+			DrvGPIO_SetBit(E_GPE,i);
+		else
+			DrvGPIO_ClrBit(E_GPE,i);
+		temp = temp>>1;
+	}
+	DrvGPIO_SetBit(E_GPC, 4+num);
+}
+
 void seg_display(int16_t value , int16_t valSeg, int16_t time){
 	
 	int digit1, t;
@@ -30,7 +43,7 @@ void seg_display(int16_t value , int16_t valSeg, int16_t time){
 		DrvSYS_Delay(6000);
 
         close_seven_segment();
-		show_seven_segment(3,SEGS[valSeg]);
+		seven_segment_rotate(3,SEGS[valSeg]);
 		DrvSYS_Delay(6000);
 	}
 	close_seven_segment();
@@ -56,10 +69,9 @@ int main(void){
 	print_Line(0,TEXT0);
 	while(1) {
 		number = ScanKey();
-		if(number == 3){
+		if(number == 3 && timer!= 70){
 				timer = timer + 20;
-		}else if(number ==8){
-			if(timer > 5)
+		}else if(number ==8 && timer!= 10){
 				timer = timer - 20;
 		}
 		seg_display(i, seg, timer);
