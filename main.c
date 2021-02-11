@@ -6,10 +6,10 @@
 #include "Scankey.h"
 #include "LCD.h"
 
-void seg_display(int16_t value , int16_t valSeg){
+void seg_display(int16_t value , int16_t valSeg, int16_t t){
 	
-	int digit1, t;
-	unsigned char SEGS[6] =   {0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
+	int digit1;
+	unsigned char SEGS[6] =   {0xEF, 0xF7, 0x7F,0xFB , 0xFD, 0xDF};
 	int8_t digit;
 	digit = value / 1000;
 	
@@ -42,6 +42,7 @@ int main(void){
 	uint32_t i = 69;
 	uint32_t seg= 0;
 	int8_t number;
+	int32_t timer = 30;
 	UNLOCKREG();
 	DrvSYS_Open(50000000);
 	
@@ -54,14 +55,21 @@ int main(void){
 	
 	print_Line(0,TEXT0);
 	while(1) {
-		seg_display(i, seg);
+		number = ScanKey();
+		if(number == 3){
+			if(timer < 55)
+				timer = timer + 5;
+		}else if(number ==8){
+			if(timer > 5)
+				timer = timer  -5;
+		}
+		seg_display(i, seg, timer);
         if(i==0)
             i = 70;
         if(seg==6)
             seg = 0;
 				else
 					seg++;
-		number = ScanKey();
 		i--;
 		seg++;
 	}
