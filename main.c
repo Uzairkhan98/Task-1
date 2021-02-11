@@ -61,7 +61,7 @@ int main(void){
         if(seg==6)
             seg = -1;
 		number = ScanKey();
-		i++;
-		seg--;
+		i--;
+		seg++;
 	}
 }
