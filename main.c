@@ -79,6 +79,8 @@ int main(void){
             i = 70;
         if(seg==6)
             seg = 0;
+				
+			seg_display(i, seg, timer);
 				seg++;
 		i--;
 	}
