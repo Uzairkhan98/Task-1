@@ -58,10 +58,10 @@ int main(void){
 		seg_display(i, seg);
         if(i==0)
             i = 70;
-        if(seg==0)
-            i = 70;
+        if(seg==6)
+            seg = -1;
 		number = ScanKey();
-		i--;
+		i++;
 		seg--;
 	}
 }
