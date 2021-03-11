@@ -10,3 +10,5 @@
 .\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx-LB_002\Include\LCD.h
 .\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx\Include\GPIO.h
 .\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx\Include\SYS.h
+.\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx-LB_002\Include\2DGraphics.h
+.\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

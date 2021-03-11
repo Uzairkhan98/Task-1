@@ -11,14 +11,14 @@
 #include "LCD.h"
 #include "GPIO.h"
 #include "SYS.h"
+#include "2DGraphics.h"
+#include <math.h>
+
 
 #define  ONESHOT  0   // counting and interrupt when reach TCMPR number, then stop
 #define  PERIODIC 1   // counting and interrupt when reach TCMPR number, then counting from 0 again
 #define  TOGGLE   2   // keep counting and interrupt when reach TCMPR number, tout toggled (between 0 and 1)
 #define  CONTINUOUS 3 // keep counting and interrupt when reach TCMPR number
-
-static uint16_t Timer0Counter=0;
-static uint16_t Timer1Counter=0;
 
 //---------------------------------------------------------------------------------TIMER
 void InitTIMER0(void)
@@ -49,10 +49,6 @@ void InitTIMER0(void)
 
 void TMR0_IRQHandler(void) // Timer0 interrupt subroutine 
 {
-	char TEXT1[16]="Timer0:         ";
-	Timer0Counter++;
-	sprintf(TEXT1+7,"%d",Timer0Counter);
-	print_Line(1, TEXT1);
  	TIMER0->TISR.TIF =1; 	 
 
   DrvGPIO_ClrBit(E_GPA,14); // GPA14 = Red,   0 : on, 1 : off
@@ -72,8 +68,8 @@ void InitTIMER1(void)
 	TIMER1->TCSR.MODE=PERIODIC;		//Select periodic mode for operation mode
 
 	/* Step 3. Select Time out period = (Period of timer clock input) * (8-bit Prescale + 1) * (24-bit TCMP)*/
-	TIMER1->TCSR.PRESCALE=124;	// Set Prescale [0~255]
-	TIMER1->TCMPR = 46875;		// Set TCMPR [0~16777215]								
+	TIMER1->TCSR.PRESCALE=255;	// Set Prescale [0~255]
+	TIMER1->TCMPR = 12345;		// Set TCMPR [0~16777215]								
 								// (1/12000000)*(255+1)*46875 = 1 sec / 1 Hz
 
 	/* Step 4. Enable interrupt */
@@ -90,10 +86,6 @@ void InitTIMER1(void)
 
 void TMR1_IRQHandler(void) // Timer1 interrupt subroutine 
 {
-	char TEXT2[16]="Timer1:        ";
-	Timer1Counter+=1;
-	sprintf(TEXT2+7,"%d",Timer1Counter);
-	print_Line(2, TEXT2);
  	TIMER1->TISR.TIF =1; 	  
 
   DrvGPIO_ClrBit(E_GPA,13); // GPA13 = Green, 0 : on, 1 : off
@@ -165,8 +157,23 @@ void LED_display(float VR1) {
 		DrvGPIO_ClrBit(E_GPC,11+i);
 }
 
+float LCD_display(float VR2, int Horizontal_max, float previous_VR2) {	
+	
+	int diff = abs(previous_VR2 - VR2);
+	int bar_length = ((VR2/4095)*Horizontal_max);
+	
+	
+	if (diff > 2) {
+		clear_LCD();
+		RectangleFill(0, 2, bar_length, 6, FG_COLOR, BG_COLOR);
+		return previous_VR2 = VR2;
+	}
+	else return previous_VR2;
+}
+
 int32_t main (void)
 {
+	float prev;
 	UNLOCKREG();
 	SYSCLK->PWRCON.XTL12M_EN = 1;//Enable 12MHz Crystal
 	SYSCLK->CLKSEL0.HCLK_S = 0;
@@ -186,6 +193,7 @@ int32_t main (void)
 		while(ADC->ADSR.ADF==0); // wait till conversion flag = 1, conversion is done
 		ADC->ADSR.ADF=1;		     // write 1 to clear the flag
 		LED_display(ADC->ADDR[7].RSLT);
+		prev = LCD_display(ADC->ADDR[6].RSLT, 127, prev);		//pass VR2 input to control bar length
 		DrvSYS_Delay(2000);	   // delay
 		ADC->ADCR.ADST=1;		     // restart ADC sample
 	}
