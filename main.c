@@ -140,15 +140,14 @@ void LED_display(float VR1) {
 	int led_num = 0;
 	int i=0;
 	//determining how many leds to light up from the VR input
-	if(VR1 >= 1026)
+	if(VR1 >= 1026.00)
 		led_num = 1;
-	else if(VR1 >= 2052)
+	else if(VR1 >= 2052.00)
 		led_num = 2;
-	else if (VR1 >= 3078)
+	else if (VR1 >= 3078.00)
 		led_num = 3;
-	else if (VR1 >= 4090)
+	else if (VR1 >= 4090.00)
 		led_num = 4;
-	else led_num = 0;
 		
 	//Giving HIGH to turn off all LEDs
 	for (i=12; i<16; i++) 
