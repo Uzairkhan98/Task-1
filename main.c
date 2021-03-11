@@ -28,7 +28,7 @@ void InitTIMER0(void)
   SYSCLK->APBCLK.TMR0_EN = 1;	//Enable Timer0 clock source
 
 	/* Step 2. Select Operation mode */	
-	TIMER0->TCSR.MODE=ONESHOT;		//Select once mode for operation mode
+	TIMER0->TCSR.MODE=PERIODIC;		//Select once mode for operation mode
 
 	/* Step 3. Select Time out period = (Period of timer clock input) * (8-bit Prescale + 1) * (24-bit TCMP)*/
 	TIMER0->TCSR.PRESCALE=255;	// Set Prescale [0~255]
