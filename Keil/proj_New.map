@@ -979,7 +979,7 @@ Image Symbol Table
     lcdSetAddr                               0x00001da1   Thumb Code   240  lcd.o(i.lcdSetAddr)
     lcdWriteCommand                          0x00001e95   Thumb Code    92  lcd.o(i.lcdWriteCommand)
     lcdWriteData                             0x00001ef5   Thumb Code    82  lcd.o(i.lcdWriteData)
-    main                                     0x00001f4d   Thumb Code   146  main.o(i.main)
+    main                                     0x00001f4d   Thumb Code   144  main.o(i.main)
     printC                                   0x00001ff9   Thumb Code   126  lcd.o(i.printC)
     print_Line                               0x0000207d   Thumb Code    36  lcd.o(i.print_Line)
     __aeabi_cdrcmple                         0x000020a1   Thumb Code     0  drlef.o(x$fpl$drleqf)
@@ -1172,14 +1172,14 @@ Image component sizes
          0          0          0          0          0       4540   core_cm0.o
       2348        146          0         16          0       6271   gpio.o
        782         30          0       2016       1024     132145   lcd.o
-      1104        152          0          4          0      11980   main.o
+      1104        154          0          4          0      11984   main.o
       1744         74          0         16         80       6629   spi.o
        100         46        192          0       1024        724   startup_nuc1xx.o
        356         54         16          8          0       2737   sys.o
          2          0          0         28          0     118382   system_nuc1xx.o
 
     ----------------------------------------------------------------------
-      6440        502        240       2088       2128     283408   Object Totals
+      6440        504        240       2088       2128     283412   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          4          0          0          0          0          0   (incl. Padding)
 
@@ -1249,9 +1249,9 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      8264        570        240       2088       2224     282648   Grand Totals
-      8264        570        240       2088       2224     282648   ELF Image Totals
-      8264        570        240       2088          0          0   ROM Totals
+      8264        572        240       2088       2224     282652   Grand Totals
+      8264        572        240       2088       2224     282652   ELF Image Totals
+      8264        572        240       2088          0          0   ROM Totals
 
 ==============================================================================
 
