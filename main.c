@@ -134,6 +134,12 @@ void Init_LED() // Initialize GPIO pins
 {
 DrvGPIO_Open(E_GPC, 12, E_IO_OUTPUT); // GPC12 pin set to output mode
 DrvGPIO_SetBit(E_GPC, 12); // output Hi to turn off LED
+DrvGPIO_Open(E_GPC, 13, E_IO_OUTPUT); // GPC13 pin set to output mode
+DrvGPIO_SetBit(E_GPC, 13); // output Hi to turn off LED
+DrvGPIO_Open(E_GPC, 14, E_IO_OUTPUT); // GPC14 pin set to output mode
+DrvGPIO_SetBit(E_GPC, 14); // output Hi to turn off LED
+DrvGPIO_Open(E_GPC, 15, E_IO_OUTPUT); // GPC15 pin set to output mode
+DrvGPIO_SetBit(E_GPC, 15); // output Hi to turn off LED
 }
 
 void LED_display(float VR1) {	
