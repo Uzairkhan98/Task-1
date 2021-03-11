@@ -186,7 +186,7 @@ int32_t main (void)
 		while(ADC->ADSR.ADF==0); // wait till conversion flag = 1, conversion is done
 		ADC->ADSR.ADF=1;		     // write 1 to clear the flag
 		LED_display(ADC->ADDR[7].RSLT);
-		DrvSYS_Delay(20000);	   // delay
+		DrvSYS_Delay(2000);	   // delay
 		ADC->ADCR.ADST=1;		     // restart ADC sample
 	}
 }
