@@ -162,9 +162,6 @@ void LED_display(float VR1) {
 	//Giving LOW to turn on active high LEDs
 	for (i=0;i<=led_num;i++)
 		DrvGPIO_ClrBit(E_GPC,11+i);
-	char TEXT1[16]="LED NUM:         ";
-	sprintf(TEXT1+7,"%d",led_num);
-	print_Line(1, TEXT1);
 }
 
 int32_t main (void)
