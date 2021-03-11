@@ -72,7 +72,7 @@ void InitTIMER1(void)
 	TIMER1->TCSR.MODE=PERIODIC;		//Select periodic mode for operation mode
 
 	/* Step 3. Select Time out period = (Period of timer clock input) * (8-bit Prescale + 1) * (24-bit TCMP)*/
-	TIMER1->TCSR.PRESCALE=255;	// Set Prescale [0~255]
+	TIMER1->TCSR.PRESCALE=124;	// Set Prescale [0~255]
 	TIMER1->TCMPR = 46875;		// Set TCMPR [0~16777215]								
 								// (1/12000000)*(255+1)*46875 = 1 sec / 1 Hz
 
@@ -102,6 +102,40 @@ void TMR1_IRQHandler(void) // Timer1 interrupt subroutine
 	
 }
 
+void InitADC(void)
+{
+	/* Step 1. GPIO initial */ 
+	GPIOA->OFFD|=0x00800000; 	//Disable digital input path
+	SYS->GPAMFP.ADC7_SS21_AD6=1; 		//Set ADC function 
+				
+	/* Step 2. Enable and Select ADC clock source, and then enable ADC module */          
+	SYSCLK->CLKSEL1.ADC_S = 2;	//Select 22Mhz for ADC
+	SYSCLK->CLKDIV.ADC_N = 1;	//ADC clock source = 22Mhz/2 =11Mhz;
+	SYSCLK->APBCLK.ADC_EN = 1;	//Enable clock source
+	ADC->ADCR.ADEN = 1;			//Enable ADC module
+
+	/* Step 3. Select Operation mode */
+	ADC->ADCR.DIFFEN = 0;     	//single end input
+	ADC->ADCR.ADMD   = 0;     	//single mode
+		
+	/* Step 4. Select ADC channel */
+	ADC->ADCHER.CHEN = 0x80;
+	
+	/* Step 5. Enable ADC interrupt */
+	ADC->ADSR.ADF =1;     		//clear the A/D interrupt flags for safe 
+	ADC->ADCR.ADIE = 1;
+//	NVIC_EnableIRQ(ADC_IRQn);
+	
+	/* Step 6. Enable WDT module */
+	ADC->ADCR.ADST=1;
+}
+
+void Init_LED() // Initialize GPIO pins
+{
+DrvGPIO_Open(E_GPC, 12, E_IO_OUTPUT); // GPC12 pin set to output mode
+DrvGPIO_SetBit(E_GPC, 12); // output Hi to turn off LED
+}
+
 int32_t main (void)
 {
 	UNLOCKREG();
@@ -110,7 +144,9 @@ int32_t main (void)
 	LOCKREG();
 
 	init_LCD(); 
+	InitADC();		    // initialize ADC
 	clear_LCD();
+	Init_LED();
 	
 	print_Line(0,"Smpl_Timer");                        
 	InitTIMER0();
