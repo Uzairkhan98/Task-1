@@ -115,11 +115,11 @@ void InitADC(void)
 	ADC->ADCR.ADEN = 1;			//Enable ADC module
 
 	/* Step 3. Select Operation mode */
-	ADC->ADCR.DIFFEN = 0;     	//single end input
-	ADC->ADCR.ADMD   = 0;     	//single mode
+	ADC->ADCR.ADMD   = 3;     	//continuous mode 
 		
 	/* Step 4. Select ADC channel */
-	ADC->ADCHER.CHEN = 0x80;
+	// we switch on both ADC7 and ADC6
+	ADC->ADCHER.CHEN = 0xC0;
 	
 	/* Step 5. Enable ADC interrupt */
 	ADC->ADSR.ADF =1;     		//clear the A/D interrupt flags for safe 
@@ -134,6 +134,29 @@ void Init_LED() // Initialize GPIO pins
 {
 DrvGPIO_Open(E_GPC, 12, E_IO_OUTPUT); // GPC12 pin set to output mode
 DrvGPIO_SetBit(E_GPC, 12); // output Hi to turn off LED
+}
+
+void LED_display(float VR1) {	
+	int led_num = 0;
+	int i=0;
+	//determining how many leds to light up from the VR input
+	if(VR1 >= 1026)
+		led_num = 1;
+	else if(VR1 >= 2052)
+		led_num = 2;
+	else if (VR1 >= 3078)
+		led_num = 3;
+	else if (VR1 >= 4090)
+		led_num = 4;
+	else led_num = 0;
+		
+	//Giving HIGH to turn off all LEDs
+	for (i=12; i<16; i++) 
+		DrvGPIO_SetBit(E_GPC,i);
+	
+	//Giving LOW to turn on active high LEDs
+	for (i=0;i<=led_num;i++)
+		DrvGPIO_ClrBit(E_GPC,11+i);
 }
 
 int32_t main (void)
@@ -154,6 +177,10 @@ int32_t main (void)
 
 	while(1)
 	{
-		__NOP(); // No Operation
+		while(ADC->ADSR.ADF==0); // wait till conversion flag = 1, conversion is done
+		ADC->ADSR.ADF=1;		     // write 1 to clear the flag
+		LED_display(ADC->ADDR[7].RSLT);
+		DrvSYS_Delay(20000);	   // delay
+		ADC->ADCR.ADST=1;		     // restart ADC sample
 	}
 }
