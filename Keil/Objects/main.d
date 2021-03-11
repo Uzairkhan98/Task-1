@@ -1,13 +1,12 @@
 .\objects\main.o: ..\main.c
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\Device\Nuvoton\NUC1xx\Include\NUC1xx.h
 .\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\CMSIS\Include\core_cm0.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\Device\Nuvoton\NUC1xx\Include\system_NUC1xx.h
 .\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\Device\Nuvoton\NUC1xx\Include\SysInfra.h
 .\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\Device\Nuvoton\NUC1xx\Include\ModuleID.h
-.\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx\Include\SYS.h
-.\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx\Include\GPIO.h
-.\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx-LB_002\Include\Seven_segment.h
-.\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx-LB_002\Include\Scankey.h
 .\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx-LB_002\Include\LCD.h
+.\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx\Include\GPIO.h
+.\objects\main.o: C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx\Include\SYS.h

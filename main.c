@@ -1,87 +1,123 @@
-#include <stdio.h>
+//
+// Smpl_Timer_LCD
+// 
+// Timer0 set at one-shot   @ 1 sec or 1 Hz
+// Timer1 set at periodic   @ 1 sec or 1 Hz
+// Timer2 set at contiuous  @ 1 sec or 1 Hz
+
+#include <stdio.h>	
+#include <string.h>
 #include "NUC1xx.h"
-#include "SYS.h"
-#include "GPIO.h"
-#include "Seven_segment.h"
-#include "Scankey.h"
 #include "LCD.h"
+#include "GPIO.h"
+#include "SYS.h"
 
-void seven_segment_rotate(unsigned char num, unsigned char number) {
-	unsigned char temp,i;
-	temp = number;
-	for(i=0; i<8; i++) {
-		if((temp&0x01)==0x01)
-			DrvGPIO_SetBit(E_GPE,i);
-		else
-			DrvGPIO_ClrBit(E_GPE,i);
-		temp = temp>>1;
-	}
-	DrvGPIO_SetBit(E_GPC, 4+num);
+#define  ONESHOT  0   // counting and interrupt when reach TCMPR number, then stop
+#define  PERIODIC 1   // counting and interrupt when reach TCMPR number, then counting from 0 again
+#define  TOGGLE   2   // keep counting and interrupt when reach TCMPR number, tout toggled (between 0 and 1)
+#define  CONTINUOUS 3 // keep counting and interrupt when reach TCMPR number
+
+static uint16_t Timer0Counter=0;
+static uint16_t Timer1Counter=0;
+
+//---------------------------------------------------------------------------------TIMER
+void InitTIMER0(void)
+{
+	/* Step 1. Enable and Select Timer clock source */          
+	SYSCLK->CLKSEL1.TMR0_S = 0;	//Select 12Mhz for Timer0 clock source 
+  SYSCLK->APBCLK.TMR0_EN = 1;	//Enable Timer0 clock source
+
+	/* Step 2. Select Operation mode */	
+	TIMER0->TCSR.MODE=ONESHOT;		//Select once mode for operation mode
+
+	/* Step 3. Select Time out period = (Period of timer clock input) * (8-bit Prescale + 1) * (24-bit TCMP)*/
+	TIMER0->TCSR.PRESCALE=255;	// Set Prescale [0~255]
+	TIMER0->TCMPR = 46875;		// Set TCMPR [0~16777215]
+								// (1/12000000)*(255+1)* 46875 = 1 sec / 1 Hz
+
+	/* Step 4. Enable interrupt */
+	TIMER0->TCSR.IE = 1;
+	TIMER0->TISR.TIF = 1;		//Write 1 to clear for safty		
+	NVIC_EnableIRQ(TMR0_IRQn);	//Enable Timer0 Interrupt
+
+	/* Step 5. Enable Timer module */
+	TIMER0->TCSR.CRST = 1;		//Reset up counter
+	TIMER0->TCSR.CEN = 1;		//Enable Timer0
+
+//  	TIMER0->TCSR.TDR_EN=1;		// Enable TDR function
 }
 
-void seg_display(int16_t value , int16_t valSeg, int16_t time){
-	
-	int digit1, t;
-	unsigned char SEGS[6] =   {0xF7, 0xEF, 0xFE, 0xDF, 0xBF, 0xFB};
-	int8_t digit;
-	digit = value / 1000;
-	
-	value = value - digit * 100;
-	digit = value / 10;
-	
-	value = value - digit * 10;
-	digit1 = value;
-	
-	for(t=0; t<time; t++){
-		
-		close_seven_segment();
-		show_seven_segment(1,digit);
-		DrvSYS_Delay(6000);
-		
-		close_seven_segment();
-		show_seven_segment(0,digit1);
-		DrvSYS_Delay(6000);
+void TMR0_IRQHandler(void) // Timer0 interrupt subroutine 
+{
+	char TEXT1[16]="Timer0:         ";
+	Timer0Counter++;
+	sprintf(TEXT1+7,"%d",Timer0Counter);
+	print_Line(1, TEXT1);
+ 	TIMER0->TISR.TIF =1; 	 
 
-        close_seven_segment();
-		seven_segment_rotate(3,SEGS[valSeg]);
-		DrvSYS_Delay(6000);
-	}
-	close_seven_segment();
+  DrvGPIO_ClrBit(E_GPA,14); // GPA14 = Red,   0 : on, 1 : off
+	DrvSYS_Delay(1000000);			  
+  DrvGPIO_SetBit(E_GPA,14); // GPA14 = Red,   0 : on, 1 : off
+  
 }
 
-int main(void){
+//---------------------------------------------------------------------------------TIMER
+void InitTIMER1(void)
+{
+	/* Step 1. Enable and Select Timer clock source */          
+	SYSCLK->CLKSEL1.TMR1_S = 0;	//Select 12Mhz for Timer1 clock source 
+    SYSCLK->APBCLK.TMR1_EN =1;	//Enable Timer1 clock source
+
+	/* Step 2. Select Operation mode */	
+	TIMER1->TCSR.MODE=PERIODIC;		//Select periodic mode for operation mode
+
+	/* Step 3. Select Time out period = (Period of timer clock input) * (8-bit Prescale + 1) * (24-bit TCMP)*/
+	TIMER1->TCSR.PRESCALE=255;	// Set Prescale [0~255]
+	TIMER1->TCMPR = 46875;		// Set TCMPR [0~16777215]								
+								// (1/12000000)*(255+1)*46875 = 1 sec / 1 Hz
+
+	/* Step 4. Enable interrupt */
+	TIMER1->TCSR.IE = 1;
+	TIMER1->TISR.TIF = 1;		//Write 1 to clear for safty		
+	NVIC_EnableIRQ(TMR1_IRQn);	//Enable Timer1 Interrupt
+
+	/* Step 5. Enable Timer module */
+	TIMER1->TCSR.CRST = 1;		//Reset up counter
+	TIMER1->TCSR.CEN = 1;		//Enable Timer1
+
+//  	TIMER1->TCSR.TDR_EN=1;		// Enable TDR function
+}
+
+void TMR1_IRQHandler(void) // Timer1 interrupt subroutine 
+{
+	char TEXT2[16]="Timer1:        ";
+	Timer1Counter+=1;
+	sprintf(TEXT2+7,"%d",Timer1Counter);
+	print_Line(2, TEXT2);
+ 	TIMER1->TISR.TIF =1; 	  
+
+  DrvGPIO_ClrBit(E_GPA,13); // GPA13 = Green, 0 : on, 1 : off
+	DrvSYS_Delay(1000000);			  
+  DrvGPIO_SetBit(E_GPA,13); // GPA14 = Red,   0 : on, 1 : off
 	
-	char TEXT0[16] = "TEST 1";
-	uint32_t i = 69;
-	uint32_t seg= 0;
-	int8_t number;
-	int32_t timer = 30;
+}
+
+int32_t main (void)
+{
 	UNLOCKREG();
-	DrvSYS_Open(50000000);
-	
+	SYSCLK->PWRCON.XTL12M_EN = 1;//Enable 12MHz Crystal
+	SYSCLK->CLKSEL0.HCLK_S = 0;
 	LOCKREG();
-	
-	init_LCD();
+
+	init_LCD(); 
 	clear_LCD();
-	OpenKeyPad();
 	
-	
-	print_Line(0,TEXT0);
-	while(1) {
-		number = ScanKey();
-		if(number == 3 && timer!= 70){
-				timer = timer + 20;
-		}else if(number ==8 && timer!= 10){
-				timer = timer - 20;
-		}
-		seg_display(i, seg, timer);
-        if(i==0)
-            i = 70;
-        if(seg==6)
-            seg = 0;
-				
-			seg_display(i, seg, timer);
-				seg++;
-		i--;
+	print_Line(0,"Smpl_Timer");                        
+	InitTIMER0();
+	InitTIMER1();
+
+	while(1)
+	{
+		__NOP(); // No Operation
 	}
 }
