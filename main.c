@@ -183,8 +183,7 @@ int32_t main (void)
 	InitADC();		    // initialize ADC
 	clear_LCD();
 	Init_LED();
-	
-	print_Line(0,"Smpl_Timer");                        
+	                    
 	InitTIMER0();
 	InitTIMER1();
 
