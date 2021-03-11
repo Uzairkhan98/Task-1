@@ -156,6 +156,9 @@ void LED_display(float VR1) {
 	//Giving LOW to turn on active high LEDs
 	for (i=0;i<=led_num;i++)
 		DrvGPIO_ClrBit(E_GPC,11+i);
+	char TEXT1[16]="LED NUM:         ";
+	sprintf(TEXT1+7,"%d",led_num);
+	print_Line(1, TEXT1);
 }
 
 int32_t main (void)
@@ -179,7 +182,7 @@ int32_t main (void)
 		while(ADC->ADSR.ADF==0); // wait till conversion flag = 1, conversion is done
 		ADC->ADSR.ADF=1;		     // write 1 to clear the flag
 		LED_display(ADC->ADDR[7].RSLT);
-		DrvSYS_Delay(20000);	   // delay
+		DrvSYS_Delay(2000);	   // delay
 		ADC->ADCR.ADST=1;		     // restart ADC sample
 	}
 }
