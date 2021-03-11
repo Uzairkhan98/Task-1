@@ -423,6 +423,11 @@
               <FileType>1</FileType>
               <FilePath>C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx-LB_002\Source\Seven_Segment.c</FilePath>
             </File>
+            <File>
+              <FileName>2DGraphics.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx-LB_002\Source\2DGraphics.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

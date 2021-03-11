@@ -6,6 +6,7 @@
 ".\objects\main.o"
 ".\objects\scankey.o"
 ".\objects\seven_segment.o"
+".\objects\2dgraphics.o"
 ".\objects\gpio.o"
 ".\objects\sys.o"
 ".\objects\spi.o"

@@ -173,7 +173,7 @@ float LCD_display(float VR2, int Horizontal_max, float previous_VR2) {
 
 int32_t main (void)
 {
-	float prev;
+	float prev = 0.0;
 	UNLOCKREG();
 	SYSCLK->PWRCON.XTL12M_EN = 1;//Enable 12MHz Crystal
 	SYSCLK->CLKSEL0.HCLK_S = 0;

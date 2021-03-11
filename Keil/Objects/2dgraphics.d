@@ -1,0 +1,10 @@
+.\objects\2dgraphics.o: C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx-LB_002\Source\2DGraphics.c
+.\objects\2dgraphics.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\2dgraphics.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\2dgraphics.o: C:\Nuvoton\NUC140BSP_EDU\Library\Device\Nuvoton\NUC1xx\Include\NUC1xx.h
+.\objects\2dgraphics.o: C:\Nuvoton\NUC140BSP_EDU\Library\CMSIS\Include\core_cm0.h
+.\objects\2dgraphics.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\2dgraphics.o: C:\Nuvoton\NUC140BSP_EDU\Library\Device\Nuvoton\NUC1xx\Include\system_NUC1xx.h
+.\objects\2dgraphics.o: C:\Nuvoton\NUC140BSP_EDU\Library\Device\Nuvoton\NUC1xx\Include\SysInfra.h
+.\objects\2dgraphics.o: C:\Nuvoton\NUC140BSP_EDU\Library\Device\Nuvoton\NUC1xx\Include\ModuleID.h
+.\objects\2dgraphics.o: C:\Nuvoton\NUC140BSP_EDU\Library\NUC1xx-LB_002\Include\LCD.h
