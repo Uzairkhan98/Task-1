@@ -15,6 +15,21 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      home: Scaffold(
+        body: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top:100),
+                child: Container(
+                    child: const Text('Something is here'),
+                    color: Colors.amberAccent,
+                ),
+              )
+            ],
+          ),
+        )
+      ),
     );
   }
 }
