@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -22,7 +23,7 @@ class _HomeState extends State<Home> {
           Expanded(
             flex: 4,
             child: Container(
-              color: Colors.cyan,
+              color: const Color(0xff1ba1a5),
               padding: EdgeInsets.symmetric(horizontal: 80, vertical: 60),
               child: Container(
                 color: Colors.grey,
@@ -41,7 +42,12 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.fromLTRB(40,0,40,0),
                   child: Column(
                     children: <Widget>[
-                      const Text('Username'),
+                      const TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Username',
+                        ),
+                      ),
                       const Padding(
                         padding: EdgeInsets.symmetric( horizontal: 30, vertical: 0),
                         child: Divider(
@@ -52,21 +58,67 @@ class _HomeState extends State<Home> {
                           endIndent: 5,
                         ),
                       ),
-                      const Text('Password'),
+                      const TextField(
+                        obscureText: true,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Password',
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                        child: ElevatedButton(onPressed: () => {}, child: const Text ('Login')),
+                        child: ElevatedButton(
+                          onPressed: () => {},
+                          child: const Text ('Login'),
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color(0xff1ba1a5),
+                            minimumSize: Size(150, 40)
+                          ),
+                        ),
                       ),
                       InkWell(
-                        child: const Text('Forgot Password?'),
+                        child: const Text('Forgot Password?',
+                          style: TextStyle(
+                            color: Color(0xff1ba1a5),
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
                         onTap: () => {}
                       ),
                       const SizedBox(height: 10),
                       InkWell(
-                          child: const Text('Create Account'),
+                          child: const Text('Create Account?',
+                          style: TextStyle(
+                            color: Color(0xff1ba1a5),
+                            decoration: TextDecoration.underline,
+                          ),
+                          ),
                           onTap: () => {}
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SignInButton(
+                        Buttons.Apple,
+                        text: "Sign in with Apple",
+                        onPressed: () {},
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SignInButton(
+                        Buttons.FacebookNew,
+                        text: "Sign in with Facebook",
+                        onPressed: () {},
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SignInButton(
+                        Buttons.GoogleDark,
+                        text: "Sign in with Google",
+                        onPressed: () {},
                       )
-
                     ],
                   ),
                 ),
