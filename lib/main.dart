@@ -21,20 +21,22 @@ class _HomeState extends State<Home> {
       body: Column(
         children: <Widget>[
           Expanded(
-            flex: 4,
+            flex: 45,
             child: Container(
               color: const Color(0xff1ba1a5),
-              padding: EdgeInsets.symmetric(horizontal: 80, vertical: 60),
-              child: Container(
-                color: Colors.grey,
+              padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 60),
+              child: SafeArea(
+                child: Container(
+                  color: Colors.grey,
+                ),
               ),
             ),
           ),
-          SizedBox(
-            height: 40,
+          const SizedBox(
+            height: 10,
             ),
           Expanded(
-            flex: 6,
+            flex: 55,
             child: Container(
               color: Colors.white70,
               child: Center(
@@ -42,6 +44,9 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.fromLTRB(40,0,40,0),
                   child: Column(
                     children: <Widget>[
+                      const SizedBox(
+                        height: 80,
+                      ),
                       const TextField(
                         textAlign: TextAlign.center,
                         decoration: InputDecoration.collapsed(
@@ -72,7 +77,7 @@ class _HomeState extends State<Home> {
                           child: const Text ('Login'),
                           style: ElevatedButton.styleFrom(
                             primary: const Color(0xff1ba1a5),
-                            minimumSize: Size(150, 40)
+                            minimumSize: const Size(150, 40)
                           ),
                         ),
                       ),
