@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 import '../Signup/home.dart';
+import 'reset.dart';
 
 
 class Signin extends StatefulWidget {
@@ -85,7 +86,14 @@ class _SigninState extends State<Signin> {
                               decoration: TextDecoration.underline,
                             ),
                           ),
-                          onTap: () => {}
+                          onTap: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {
+                                return const Reset();
+                              }),
+                            )
+                          },
                       ),
                       const SizedBox(height: 10),
                       InkWell(
