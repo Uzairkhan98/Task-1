@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 
-import 'Screens/Signup/home.dart';
+import 'Screens/Signin/home.dart';
 
 void main() {
   runApp(const MaterialApp(
-    home: Signup(),
+    home: Signin(),
   ));
 }
 
