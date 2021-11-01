@@ -12,6 +12,7 @@ class Personal extends StatefulWidget {
 class _PersonalState extends State<Personal> {
   @override
   Widget build(BuildContext context) {
+    var _value = 0;
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -90,7 +91,6 @@ class _PersonalState extends State<Personal> {
                         ),
                       ),
                       TextField(
-                        obscureText: true,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration.collapsed(
                             hintText: 'Country'.toUpperCase(),
@@ -107,13 +107,24 @@ class _PersonalState extends State<Personal> {
                           endIndent: 5,
                         ),
                       ),
-                      TextField(
-                        obscureText: true,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration.collapsed(
-                            hintText: 'Gender'.toUpperCase(),
-                            hintStyle: const TextStyle(color: Color(0xffC4C4C4))
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Gender'.toUpperCase(), style: const TextStyle(color: Color(0xffC4C4C4), fontSize: 15) ),
+                          MyRadioListTile<int>(
+                            value: 1,
+                            groupValue: _value = 0,
+                            leading: 'M',
+                            onChanged: (value) => setState(() => _value = value!),
+                          ),
+                          MyRadioListTile<int>(
+                            value: 2,
+                            groupValue: _value,
+                            leading: 'F',
+                            onChanged: (value) => setState(() => _value = value!),
+                          ),
+
+                        ],
                       ),
                       const SizedBox(height: 20),
                       Padding(
@@ -134,6 +145,7 @@ class _PersonalState extends State<Personal> {
                           ),
                         ),
                       ),
+
                     ],
                   ),
                 ),
@@ -146,3 +158,59 @@ class _PersonalState extends State<Personal> {
   }
 }
 
+class MyRadioListTile<T> extends StatelessWidget {
+  final T value;
+  final T groupValue;
+  final String leading;
+  final Widget? title;
+  final ValueChanged<T?> onChanged;
+
+  const MyRadioListTile({Key? key,
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
+    required this.leading,
+    this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final title = this.title;
+    return InkWell(
+      onTap: () => onChanged(value),
+      child: Container(
+        height: 56,
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: Row(
+          children: [
+            _customRadioButton,
+            const SizedBox(width: 4),
+            if (title != null) title,
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget get _customRadioButton {
+    final isSelected = value == groupValue;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: isSelected ? Colors.blue : const Color(0xffc4c4c4),
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(
+          color: isSelected ? Colors.blue : const Color(0xffc4c4c4),
+        ),
+      ),
+      child: Text(
+        leading,
+        style: TextStyle(
+          color: isSelected ? Colors.white : Colors.black!,
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+        ),
+      ),
+    );
+  }
+}
