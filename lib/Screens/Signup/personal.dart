@@ -10,9 +10,10 @@ class Personal extends StatefulWidget {
 }
 
 class _PersonalState extends State<Personal> {
+  int _value = 0;
+
   @override
   Widget build(BuildContext context) {
-    var _value = 0;
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -110,10 +111,11 @@ class _PersonalState extends State<Personal> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Gender'.toUpperCase(), style: const TextStyle(color: Color(0xffC4C4C4), fontSize: 15) ),
+                          Text('Gender'.toUpperCase(), style: const TextStyle(color: Color(0xffC4C4C4), fontSize: 16) ),
+                          const SizedBox(width:15),
                           MyRadioListTile<int>(
                             value: 1,
-                            groupValue: _value = 0,
+                            groupValue: _value,
                             leading: 'M',
                             onChanged: (value) => setState(() => _value = value!),
                           ),
@@ -194,11 +196,13 @@ class MyRadioListTile<T> extends StatelessWidget {
 
   Widget get _customRadioButton {
     final isSelected = value == groupValue;
+    print(isSelected);
+    print(value);
+    print(groupValue);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: isSelected ? Colors.blue : const Color(0xffc4c4c4),
-        borderRadius: BorderRadius.circular(4),
         border: Border.all(
           color: isSelected ? Colors.blue : const Color(0xffc4c4c4),
         ),
@@ -206,9 +210,9 @@ class MyRadioListTile<T> extends StatelessWidget {
       child: Text(
         leading,
         style: TextStyle(
-          color: isSelected ? Colors.white : Colors.black!,
+          color: isSelected ? Colors.white : Colors.black,
           fontWeight: FontWeight.bold,
-          fontSize: 18,
+          fontSize: 15,
         ),
       ),
     );
