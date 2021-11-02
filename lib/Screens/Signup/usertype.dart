@@ -53,18 +53,7 @@ class _TypeState extends State<Type> {
                       const SizedBox(
                         height: 50,
                       ),
-                      TextField(
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration.collapsed(
-                            hintText: 'User Type'.toUpperCase(),
-                            hintStyle: const TextStyle(color: Color(0xffC4C4C4))
-                        ),
-                      ),
-                      const Text(
-                        'User Type',
-                        style: TextStyle(color: Color(0xffC4C4C4),
-                        ),
-                      ),
+                      const Text('User type', textAlign: TextAlign.center, style: TextStyle(color:Color(0xffC4C4C4), fontSize: 18),),
                       const Padding(
                         padding: EdgeInsets.symmetric( horizontal: 30, vertical: 0),
                         child: Divider(
@@ -73,61 +62,6 @@ class _TypeState extends State<Type> {
                           thickness: 2,
                           indent:5,
                           endIndent: 5,
-                        ),
-                      ),
-                      TextField(
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration.collapsed(
-                            hintText: 'Date of Birth'.toUpperCase(),
-                            hintStyle: const TextStyle(color: Color(0xffC4C4C4))
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric( horizontal: 30, vertical: 0),
-                        child: Divider(
-                          color: Color(0xffC4C4C4),
-                          height:25,
-                          thickness: 2,
-                          indent:5,
-                          endIndent: 5,
-                        ),
-                      ),
-                      TextField(
-                        obscureText: true,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration.collapsed(
-                            hintText: 'Country'.toUpperCase(),
-                            hintStyle: const TextStyle(color: Color(0xffC4C4C4))
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric( horizontal: 30, vertical: 0),
-                        child: Divider(
-                          color: Color(0xffC4C4C4),
-                          height:25,
-                          thickness: 2,
-                          indent:5,
-                          endIndent: 5,
-                        ),
-                      ),
-                      TextField(
-                        obscureText: true,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration.collapsed(
-                            hintText: 'Gender'.toUpperCase(),
-                            hintStyle: const TextStyle(color: Color(0xffC4C4C4))
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                        child: ElevatedButton(
-                          onPressed: () => {},
-                          child: Text ('Next'.toUpperCase()),
-                          style: ElevatedButton.styleFrom(
-                              primary: const Color(0xff1ba1a5),
-                              minimumSize: const Size(150, 40)
-                          ),
                         ),
                       ),
                     ],
