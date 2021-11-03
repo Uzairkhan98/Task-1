@@ -188,9 +188,6 @@ class MyRadioListTile<T> extends StatelessWidget {
 
   Widget get _customRadioButton {
     final isSelected = value == groupValue;
-    print(isSelected);
-    print(value);
-    print(groupValue);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(

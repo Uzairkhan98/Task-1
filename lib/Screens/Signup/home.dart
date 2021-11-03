@@ -4,7 +4,6 @@ import 'personal.dart';
 
 import '../../Widgets/topbar.dart';
 
-
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
 
