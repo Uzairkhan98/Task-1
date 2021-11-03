@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../Widgets/topbar.dart';
+
 class Type extends StatefulWidget {
   const Type({Key? key}) : super(key: key);
 
@@ -13,23 +15,12 @@ class _TypeState extends State<Type> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Expanded(
-            flex: 45,
-            child: Container(
-              color: const Color(0xff1ba1a5),
-              padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 60),
-              child: SafeArea(
-                child: Container(
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-          ),
+          const expansionWidget(),
           const SizedBox(
             height: 10,
           ),
           Expanded(
-            flex: 55,
+            flex: 75,
             child: Container(
               color: Colors.white70,
               child: Center(
@@ -64,50 +55,65 @@ class _TypeState extends State<Type> {
                           endIndent: 5,
                         ),
                       ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Column(
                       children: [
-                        Column(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(height:20),
-                            GestureDetector(
-                              onTap: () => {print("I is being pressed")},
-                              child:  const CircleAvatar(
-                                radius: 55.0,
-                                backgroundImage: ExactAssetImage('assets/student.png'),
-                              ),
+                            Column(
+                              children: [
+                                const SizedBox(height:20),
+                                GestureDetector(
+                                  onTap: () => {print("I is being pressed")},
+                                  child:  const CircleAvatar(
+                                    radius: 55.0,
+                                    backgroundImage: ExactAssetImage('assets/student.png'),
+                                  ),
+                                ),
+                                const SizedBox(height:20),
+                                GestureDetector(
+                                  onTap: () => {print("I is being pressed")},
+                                  child:  const CircleAvatar(
+                                    radius: 55.0,
+                                    backgroundImage: ExactAssetImage('assets/student.png'),
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(height:20),
-                            GestureDetector(
-                              onTap: () => {print("I is being pressed")},
-                              child:  const CircleAvatar(
-                                radius: 55.0,
-                                backgroundImage: ExactAssetImage('assets/student.png'),
-                              ),
-                            ),
+                            const SizedBox(width:20),
+                            Column(
+                              children: [
+                                const SizedBox(height:20),
+                                GestureDetector(
+                                  onTap: () => {print("I is being pressed")},
+                                  child:  const CircleAvatar(
+                                    radius: 55.0,
+                                    backgroundImage: ExactAssetImage('assets/student.png'),
+                                  ),
+                                ),
+                                const SizedBox(height:20),
+                                GestureDetector(
+                                  onTap: () => {print("I is being pressed")},
+                                  child:  const CircleAvatar(
+                                    radius: 55.0,
+                                    backgroundImage: ExactAssetImage('assets/student.png'),
+                                  ),
+                                ),
+                              ],
+                            )
                           ],
                         ),
-                        const SizedBox(width:20),
-                        Column(
-                          children: [
-                            const SizedBox(height:20),
-                            GestureDetector(
-                              onTap: () => {print("I is being pressed")},
-                              child:  const CircleAvatar(
-                                radius: 55.0,
-                                backgroundImage: ExactAssetImage('assets/student.png'),
-                              ),
-                            ),
-                            const SizedBox(height:20),
-                            GestureDetector(
-                              onTap: () => {print("I is being pressed")},
-                              child:  const CircleAvatar(
-                                radius: 55.0,
-                                backgroundImage: ExactAssetImage('assets/student.png'),
-                              ),
-                            ),
-                          ],
-                        ),
+                    Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                child: ElevatedButton(
+                  onPressed: () =>  { },
+                  child: Text ('Next'.toUpperCase()),
+                  style: ElevatedButton.styleFrom(
+                      primary: const Color(0xff1ba1a5),
+                      minimumSize: const Size(150, 40)
+                  ),
+                ),
+              ),
                       ],
                     )
                     ],

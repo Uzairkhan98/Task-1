@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'set.dart';
+import '../../Widgets/topbar.dart';
 
 class Reset extends StatefulWidget {
   const Reset({Key? key}) : super(key: key);
@@ -15,23 +16,12 @@ class _ResetState extends State<Reset> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Expanded(
-            flex: 45,
-            child: Container(
-              color: const Color(0xff1ba1a5),
-              padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 60),
-              child: SafeArea(
-                child: Container(
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-          ),
+          const expansionWidget(),
           const SizedBox(
             height: 10,
           ),
           Expanded(
-            flex: 55,
+            flex: 75,
             child: Container(
               color: Colors.white70,
               child: Center(
