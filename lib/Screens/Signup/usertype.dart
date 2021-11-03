@@ -64,6 +64,10 @@ class _TypeState extends State<Type> {
                           endIndent: 5,
                         ),
                       ),
+                      GestureDetector(
+                        onTap: () => {},
+                        child: Image.asset('assets/student.png'),
+                      ),
                     ],
                   ),
                 ),
