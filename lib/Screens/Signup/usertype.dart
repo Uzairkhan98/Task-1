@@ -51,7 +51,7 @@ class _TypeState extends State<Type> {
                           onTap: () => {}
                       ),
                       const SizedBox(
-                        height: 50,
+                        height: 20,
                       ),
                       const Text('User type', textAlign: TextAlign.center, style: TextStyle(color:Color(0xffC4C4C4), fontSize: 18),),
                       const Padding(
@@ -64,10 +64,52 @@ class _TypeState extends State<Type> {
                           endIndent: 5,
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () => {},
-                        child: Image.asset('assets/student.png'),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          children: [
+                            const SizedBox(height:20),
+                            GestureDetector(
+                              onTap: () => {print("I is being pressed")},
+                              child:  const CircleAvatar(
+                                radius: 55.0,
+                                backgroundImage: ExactAssetImage('assets/student.png'),
+                              ),
+                            ),
+                            const SizedBox(height:20),
+                            GestureDetector(
+                              onTap: () => {print("I is being pressed")},
+                              child:  const CircleAvatar(
+                                radius: 55.0,
+                                backgroundImage: ExactAssetImage('assets/student.png'),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width:20),
+                        Column(
+                          children: [
+                            const SizedBox(height:20),
+                            GestureDetector(
+                              onTap: () => {print("I is being pressed")},
+                              child:  const CircleAvatar(
+                                radius: 55.0,
+                                backgroundImage: ExactAssetImage('assets/student.png'),
+                              ),
+                            ),
+                            const SizedBox(height:20),
+                            GestureDetector(
+                              onTap: () => {print("I is being pressed")},
+                              child:  const CircleAvatar(
+                                radius: 55.0,
+                                backgroundImage: ExactAssetImage('assets/student.png'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
                     ],
                   ),
                 ),
