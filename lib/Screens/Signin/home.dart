@@ -41,11 +41,18 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                         const SizedBox(
                           height: 80,
                         ),
-                        const TextField(
+                        TextFormField(
                           textAlign: TextAlign.center,
-                          decoration: InputDecoration.collapsed(
-                            hintText: 'Username',
+                          decoration: const InputDecoration.collapsed(
+                            hintText: 'Email',
                           ),
+                          validator: (email) {
+                            if (isEmailValid(email!)) {
+                              return null;
+                            } else {
+                              return 'Enter a valid email address';
+                            }
+                          },
                         ),
                         const Padding(
                           padding: EdgeInsets.symmetric( horizontal: 30, vertical: 0),
@@ -63,6 +70,7 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                           decoration: const InputDecoration.collapsed(
                             hintText: 'Password',
                           ),
+
                           validator: (password) {
                             if (isPasswordValid(password!)) {
                               return null;
