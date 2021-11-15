@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 import '../Signup/home.dart';
+import '../Home/dashboard.dart';
 import 'reset.dart';
 import '../../Widgets/topbar.dart';
 
@@ -83,6 +84,12 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                           child: ElevatedButton(
                             onPressed: () => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return const Dashboard();
+                                }),
+                              ),
                             if (formGlobalKey.currentState!.validate()) {
                               // If the form is valid, display a snackbar. In the real world,
                               // you'd often call a server or save the information in a database.
