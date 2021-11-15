@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'dart:io';
+
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -10,6 +13,8 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  String serverResponse = 'Server response';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +48,12 @@ class _DashboardState extends State<Dashboard> {
                       const SizedBox(
                         height: 50,
                       ),
+                      ElevatedButton(
+                        child: const Text('Send request to server'),
+                        onPressed: () {
+                          _makeGetRequest();
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -52,5 +63,20 @@ class _DashboardState extends State<Dashboard> {
         ],
       ),
     );
+  }
+  _makeGetRequest() async {
+    final url = Uri.parse(_localhost());
+    Response response = await get(url);
+    print(response.body);
+    setState(() {
+      serverResponse = response.body;
+    });
+  }
+
+  String _localhost() {
+    if (Platform.isAndroid)
+      return 'http://10.0.2.2:4000';
+    else // for iOS simulator
+      return 'http://localhost:4000';
   }
 }
