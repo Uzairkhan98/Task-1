@@ -108,7 +108,7 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                             onPressed: () async => {
                               showLoaderDialog(context),
                               serveres = await signIn(emailController.text, passwordController.text),
-                              print(serveres),
+                              //print(serveres),
                               Navigator.pop(context),
                               if(serveres == 200) {
                                 Navigator.push(
@@ -215,23 +215,50 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
     );
   }
   signIn(String email, pass) async {
+
     Map data = {
       'email': email,
       'password': pass
     };
-    print(json.encode(data));
-    var jsonResponse = {};
+    http.Response res;
     var response = await http.post(Uri.parse("http://localhost:4000/users/login"), body: json.encode(data), headers: <String, String>{
     'Content-type' : 'application/json; charset=UTF-8'
     });
     if(response.statusCode == 200) {
-      jsonResponse = json.decode(response.body);
-      print(jsonResponse);
-      if(jsonResponse != null) {
-        print(jsonResponse);
-      }
+      final url = Uri.parse('http://localhost:4000/users/user-profile/$email');
+
+      Map<String, dynamic> postResmap = jsonDecode(response.body);
+      var tok = postRes.fromJson(postResmap);
+
+      print('Howdy, ${tok.data}!');
+
+      res = await http.get(url, headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin':'true',
+        'Authorization': 'Bearer ${tok.data}',
+      });
+      print(res.body);
+      // if(jsonResponse != null) {
+      //   print(jsonResponse);
+      // }
     }
     return response.statusCode;
   }
 }
 
+class postRes {
+  final String message;
+  final String data;
+
+  postRes(this.message, this.data);
+
+  postRes.fromJson(Map<String, dynamic> json)
+      : message = json['message'],
+        data = json['data'];
+
+  Map<String, dynamic> toJson() => {
+    'message': message,
+    'data': data,
+  };
+}
