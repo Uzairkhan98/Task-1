@@ -65,18 +65,18 @@ class _DashboardState extends State<Dashboard> {
     );
   }
   _makeGetRequest() async {
-    final url = Uri.parse(_localhost());
-    Response response = await get(url);
+    final url = Uri.parse('http://localhost:4000/users/user-profile/johndoe@gmail.com');
+    Response response = await get(url, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    'Access-Control-Allow-Origin':'true',
+    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE2MzcwNTUzMzEsImV4cCI6MTYzNzA1ODkzMX0.Nb9FgwZyNKi1MzL8JRG5mr5Gm4tHwm34WTPvm3PDxik',
+    });
     print(response.body);
     setState(() {
       serverResponse = response.body;
     });
   }
 
-  String _localhost() {
-    if (Platform.isAndroid)
-      return 'http://10.0.2.2:4000';
-    else // for iOS simulator
-      return 'http://localhost:4000';
-  }
+
 }

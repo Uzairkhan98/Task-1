@@ -18,6 +18,8 @@ class Signin extends StatefulWidget{
 class _SigninState extends State<Signin>  with InputValidationMixin{
   final formGlobalKey = GlobalKey < FormState > ();
 
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,7 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                         ),
                         TextFormField(
                           textAlign: TextAlign.center,
+                          controller: emailController,
                           decoration: const InputDecoration.collapsed(
                             hintText: 'Email',
                           ),
@@ -67,6 +70,7 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                         ),
                         TextFormField(
                           obscureText: true,
+                          controller: passwordController,
                           textAlign: TextAlign.center,
                           decoration: const InputDecoration.collapsed(
                             hintText: 'Password',
@@ -87,6 +91,8 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) {
+                                  print(emailController.text);
+                                  print(passwordController.text);
                                   return const Dashboard();
                                 }),
                               ),
@@ -110,15 +116,28 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                                 decoration: TextDecoration.underline,
                               ),
                             ),
-                            onTap: () => {
+                            onTap: () async => {
+
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) {
+                                  print(emailController.text);
+                                  print(passwordController.text);
                                   return const Reset();
                                 }),
                               )
                             },
                         ),
+                        // Container(
+                        //     height: 50,
+                        //     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        //     child: ElevatedButton(
+                        //       child: Text('Login'),
+                        //       onPressed: () {
+                        //         print(emailController.text);
+                        //         print(passwordController.text);
+                        //       },
+                        //     )),
                         const SizedBox(height: 10),
                         InkWell(
                             child: const Text('Create Account?',
