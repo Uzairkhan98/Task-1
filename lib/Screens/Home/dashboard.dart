@@ -4,79 +4,78 @@ import 'dart:io';
 
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  final List userData;
+  const Dashboard(this.userData);
 
   @override
-  State<Dashboard> createState() =>
-      
-      _DashboardState();
+  _DashboardState createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
-  String serverResponse = 'Server response';
-
   @override
   Widget build(BuildContext context) {
+    print('coming here');
+    Map<String, dynamic> temp = widget.userData[0];
+    var dat = dataMap.fromJson(temp);
+    print('cpoming here');
+    print(dat);
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          const SizedBox(
-            height: 10,
-          ),
-          Expanded(
-            flex: 75,
-            child: Container(
-              color: Colors.white70,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(40,0,40,0),
-                  child: Column(
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      InkWell(
-                          child: const Text('Dashboard',
-                            style: TextStyle(
-                              color: Color(0xff1ba1a5),
-                              decoration: TextDecoration.underline,
-                              fontSize: 20,
-                            ),
-                          ),
-                          onTap: () => {}
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      ElevatedButton(
-                        child: const Text('Send request to server'),
-                        onPressed: () {
-                          _makeGetRequest();
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+      body: ListView.builder(
+      itemCount: widget.userData.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(dat.created_at),
+          // When a user taps the ListTile, navigate to the DetailScreen.
+          // Notice that you're not only creating a DetailScreen, you're
+          // also passing the current todo through to it.
+
+        );
+      },
+    ),
     );
   }
-  _makeGetRequest() async {
-    final url = Uri.parse('http://localhost:4000/users/user-profile/johndoe@gmail.com');
-    Response response = await get(url, headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    'Access-Control-Allow-Origin':'true',
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE2MzcwNTUzMzEsImV4cCI6MTYzNzA1ODkzMX0.Nb9FgwZyNKi1MzL8JRG5mr5Gm4tHwm34WTPvm3PDxik',
-    });
-    print(response.body);
-    setState(() {
-      serverResponse = response.body;
-    });
-  }
+}
+
+class dataMap {
+  final int id;
+  final String username;
+  final String password;
+  final String full_name;
+  final String dob;
+  final String country;
+  final int gender;
+  final String user_type;
+  final int status;
+  final String created_at;
+  final String updated_at;
+
+  dataMap(this.id, this.username, this.password, this.full_name, this.dob, this.country, this.gender, this.user_type, this.status, this.created_at, this.updated_at );
+
+  dataMap.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        username = json['username'],
+        password = json['password'],
+        full_name = json['full_name'],
+        dob = json['dob'],
+        country = json['country'],
+        gender = json['gender'],
+        user_type = json['user_type'],
+        status = json['status'],
+        created_at = json['created_at'],
+        updated_at = json['updated_at'];
 
 
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'username': username,
+    'password' : password,
+    'full_name' : full_name,
+    'dob' : dob,
+    'country': country,
+    'gender' : gender,
+    'user_type' : user_type,
+    'status' : status,
+    'created_at' : created_at,
+    'updated_at' : updated_at
+  };
 }

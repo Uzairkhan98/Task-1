@@ -108,15 +108,13 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                             onPressed: () async => {
                               showLoaderDialog(context),
                               serveres = await signIn(emailController.text, passwordController.text),
-                              print(serveres),
+                              print(serveres.runtimeType),
                               Navigator.pop(context),
                               if(serveres != null) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) {
-                                    print(emailController.text);
-                                    print(passwordController.text);
-                                    return const Dashboard();
+                                    return Dashboard(serveres);
                                   }),
                                 ),
                               },
