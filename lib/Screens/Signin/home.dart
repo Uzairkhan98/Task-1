@@ -5,8 +5,11 @@ import '../Signup/home.dart';
 import '../Home/dashboard.dart';
 import 'reset.dart';
 import '../../Widgets/topbar.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import '../../Mixins/inputvalidation.dart';
+
 
 class Signin extends StatefulWidget{
   const Signin({Key? key}) : super(key: key);
@@ -88,7 +91,8 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                           child: ElevatedButton(
                             onPressed: () => {
-                              Navigator.push(
+                            signIn(emailController.text, passwordController.text),
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) {
                                   print(emailController.text);
@@ -189,6 +193,35 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
         ),
       ),
     );
+  }
+  signIn(String email, pass) async {
+    Map data = {
+      'email': email,
+      'password': pass
+    };
+    print(json.encode(data));
+    var jsonResponse = {};
+    var response = await http.post(Uri.parse("http://localhost:4000/users/login"), body: json.encode(data), headers: <String, String>{
+    'Content-type' : 'application/json; charset=UTF-8'
+    });
+    print(response);
+    if(response.statusCode == 200) {
+      jsonResponse = json.decode(response.body);
+      print(jsonResponse);
+      if(jsonResponse != null) {
+        // setState(() {
+        //   _isLoading = false;
+        // });
+        print(jsonResponse);
+      }
+    }
+    // else {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    //   errorMsg = response.body;
+    //   print("The error message is: ${response.body}");
+    // }
   }
 }
 
