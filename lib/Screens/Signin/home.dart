@@ -108,9 +108,9 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                             onPressed: () async => {
                               showLoaderDialog(context),
                               serveres = await signIn(emailController.text, passwordController.text),
-                              //print(serveres),
+                              print(serveres),
                               Navigator.pop(context),
-                              if(serveres == 200) {
+                              if(serveres != null) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) {
@@ -152,16 +152,6 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                               )
                             },
                         ),
-                        // Container(
-                        //     height: 50,
-                        //     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        //     child: ElevatedButton(
-                        //       child: Text('Login'),
-                        //       onPressed: () {
-                        //         print(emailController.text);
-                        //         print(passwordController.text);
-                        //       },
-                        //     )),
                         const SizedBox(height: 10),
                         InkWell(
                             child: const Text('Create Account?',
@@ -238,12 +228,11 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
         'Access-Control-Allow-Origin':'true',
         'Authorization': 'Bearer ${tok.data}',
       });
-      print(res.body);
-      // if(jsonResponse != null) {
-      //   print(jsonResponse);
-      // }
+      Map<String, dynamic> postResmap2 = jsonDecode(res.body);
+      var dat = postRes2.fromJson(postResmap2);
+      return dat.data;
     }
-    return response.statusCode;
+    return null;
   }
 }
 
@@ -254,6 +243,22 @@ class postRes {
   postRes(this.message, this.data);
 
   postRes.fromJson(Map<String, dynamic> json)
+      : message = json['message'],
+        data = json['data'];
+
+  Map<String, dynamic> toJson() => {
+    'message': message,
+    'data': data,
+  };
+}
+
+class postRes2 {
+  final String message;
+  final List data;
+
+  postRes2(this.message, this.data);
+
+  postRes2.fromJson(Map<String, dynamic> json)
       : message = json['message'],
         data = json['data'];
 
