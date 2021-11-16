@@ -21,9 +21,24 @@ class Signin extends StatefulWidget{
 class _SigninState extends State<Signin>  with InputValidationMixin{
   final formGlobalKey = GlobalKey < FormState > ();
 
+  dynamic serveres;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(margin: const EdgeInsets.only(left: 7),child:const Text("Loading..." )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,16 +105,21 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                           child: ElevatedButton(
-                            onPressed: () => {
-                            signIn(emailController.text, passwordController.text),
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) {
-                                  print(emailController.text);
-                                  print(passwordController.text);
-                                  return const Dashboard();
-                                }),
-                              ),
+                            onPressed: () async => {
+                              showLoaderDialog(context),
+                              serveres = await signIn(emailController.text, passwordController.text),
+                              print(serveres),
+                              Navigator.pop(context),
+                              if(serveres == 200) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    print(emailController.text);
+                                    print(passwordController.text);
+                                    return const Dashboard();
+                                  }),
+                                ),
+                              },
                             if (formGlobalKey.currentState!.validate()) {
                               // If the form is valid, display a snackbar. In the real world,
                               // you'd often call a server or save the information in a database.
@@ -204,24 +224,14 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
     var response = await http.post(Uri.parse("http://localhost:4000/users/login"), body: json.encode(data), headers: <String, String>{
     'Content-type' : 'application/json; charset=UTF-8'
     });
-    print(response);
     if(response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       print(jsonResponse);
       if(jsonResponse != null) {
-        // setState(() {
-        //   _isLoading = false;
-        // });
         print(jsonResponse);
       }
     }
-    // else {
-    //   setState(() {
-    //     _isLoading = false;
-    //   });
-    //   errorMsg = response.body;
-    //   print("The error message is: ${response.body}");
-    // }
+    return response.statusCode;
   }
 }
 
