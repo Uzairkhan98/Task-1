@@ -218,7 +218,7 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
       Map<String, dynamic> postResmap = jsonDecode(response.body);
       var tok = postRes.fromJson(postResmap);
 
-      print('Howdy, ${tok.data}!');
+      print('Howdy, ${email}!');
 
       res = await http.get(url, headers: {
         'Content-Type': 'application/json',
