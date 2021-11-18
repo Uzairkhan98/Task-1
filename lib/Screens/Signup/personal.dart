@@ -6,7 +6,11 @@ import '../../Widgets/topbar.dart';
 
 
 class Personal extends StatefulWidget {
-  const Personal({Key? key}) : super(key: key);
+
+  final String userName;
+  final String password;
+  final String email;
+  const Personal(this.userName, this.password, this.email);
 
   @override
   _PersonalState createState() => _PersonalState();

@@ -12,6 +12,13 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  final formGlobalKey = GlobalKey < FormState > ();
+
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController cpasswordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,8 +53,9 @@ class _SignupState extends State<Signup> {
                       const SizedBox(
                         height: 50,
                       ),
-                      TextField(
+                      TextFormField(
                         textAlign: TextAlign.center,
+                        controller: usernameController,
                         decoration: InputDecoration.collapsed(
                             hintText: 'Username'.toUpperCase(),
                             hintStyle: const TextStyle(color: Color(0xffC4C4C4))
@@ -63,8 +71,9 @@ class _SignupState extends State<Signup> {
                           endIndent: 5,
                         ),
                       ),
-                      TextField(
+                      TextFormField(
                         textAlign: TextAlign.center,
+                        controller: emailController,
                         decoration: InputDecoration.collapsed(
                             hintText: 'Email'.toUpperCase(),
                             hintStyle: const TextStyle(color: Color(0xffC4C4C4))
@@ -80,9 +89,10 @@ class _SignupState extends State<Signup> {
                           endIndent: 5,
                         ),
                       ),
-                      TextField(
+                      TextFormField(
                         obscureText: true,
                         textAlign: TextAlign.center,
+                        controller: passwordController,
                         decoration: InputDecoration.collapsed(
                             hintText: 'Password'.toUpperCase(),
                             hintStyle: const TextStyle(color: Color(0xffC4C4C4))
@@ -101,6 +111,7 @@ class _SignupState extends State<Signup> {
                       TextField(
                         obscureText: true,
                         textAlign: TextAlign.center,
+                        controller: cpasswordController,
                         decoration: InputDecoration.collapsed(
                             hintText: 'Confirm Password'.toUpperCase(),
                             hintStyle: const TextStyle(color: Color(0xffC4C4C4))
@@ -111,12 +122,12 @@ class _SignupState extends State<Signup> {
                         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                         child: ElevatedButton(
                           onPressed: () =>  {
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                          return const Personal();
-                          }),
-                          )
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {
+                                return Personal( usernameController.text, passwordController.text, emailController.text);
+                              }),
+                            )
                         },
                           child: Text ('Next'.toUpperCase()),
                           style: ElevatedButton.styleFrom(
