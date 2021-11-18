@@ -14,9 +14,6 @@ class Personal extends StatefulWidget {
   final String email;
   Personal(this.userName, this.password, this.email);
 
-  TextEditingController fullnameController = TextEditingController();
-  TextEditingController dobController = TextEditingController();
-  TextEditingController countryController = TextEditingController();
 
 
   @override
@@ -26,7 +23,12 @@ class Personal extends StatefulWidget {
 class _PersonalState extends State<Personal> {
   final formGlobalKey = GlobalKey < FormState > ();
 
+  TextEditingController fullnameController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
+
+
   int _value = 0;
+  String dob = '';
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +68,7 @@ class _PersonalState extends State<Personal> {
                         ),
                         TextFormField(
                           textAlign: TextAlign.center,
+                          controller: fullnameController,
                           decoration: InputDecoration.collapsed(
                               hintText: 'Full Name'.toUpperCase(),
                               hintStyle: const TextStyle(color: Color(0xffC4C4C4))
@@ -106,7 +109,7 @@ class _PersonalState extends State<Personal> {
                           icon: Icon(Icons.event),
                           timeLabelText: 'Enter your Date of Birth',
                           fieldHintText: 'DOB',
-                          onChanged: (val) => print(val),
+                          onChanged: (val) => setState(() => dob = val),
                           validator: (val) {
                             print(val);
                             return null;
@@ -127,6 +130,7 @@ class _PersonalState extends State<Personal> {
                         // ),
                         TextFormField(
                           textAlign: TextAlign.center,
+                          controller: countryController,
                           decoration: InputDecoration.collapsed(
                               hintText: 'Country'.toUpperCase(),
                               hintStyle: const TextStyle(color: Color(0xffC4C4C4))
@@ -170,8 +174,8 @@ class _PersonalState extends State<Personal> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) {
-                                  return Type(widget.userName, widget.password, widget.email, widget.fullnameController.text,
-                                  widget.dobController.text, widget.countryController.text, _value);
+                                  return Type(widget.userName, widget.password, widget.email, fullnameController.text,
+                                  dob, countryController.text, _value);
                                 }),
                               )
                             },

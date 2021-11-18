@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../Widgets/topbar.dart';
 
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 class Type extends StatefulWidget {
 
   final formGlobalKey = GlobalKey < FormState > ();
@@ -14,7 +16,7 @@ class Type extends StatefulWidget {
   final String country;
   final int gender;
 
-  Type(this.userName, this.password, this.email, this.fullName, this.dob, this.country, this.gender);
+  Type(this.userName, this.password, this.email, this.fullName, this.dob, this.country, this.gender, {Key? key}) : super(key: key);
 
   @override
   _TypeState createState() => _TypeState();
@@ -141,7 +143,9 @@ class _TypeState extends State<Type> {
                     Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                 child: ElevatedButton(
-                  onPressed: () =>  { print(_value) },
+                  onPressed: () =>  {
+                    registerUser(widget.userName, widget.email, widget.password, widget.fullName, widget.dob, widget.gender, widget.country, _value)
+                  },
                   child: Text ('Next'.toUpperCase()),
                   style: ElevatedButton.styleFrom(
                       primary: const Color(0xff1ba1a5),
@@ -160,5 +164,29 @@ class _TypeState extends State<Type> {
         ],
       ),
     );
+  }
+
+  registerUser(String userName, email, password, fullName, dob, gender, country, user_type ) async {
+
+    Map data = {
+      'username': userName,
+      'email': email,
+      'password': password,
+      'full_name': fullName,
+      'dob' : dob,
+      'gender' : gender,
+      'country' : country,
+      'user_type' : user_type
+    };
+
+    var response = await http.post(Uri.parse("http://localhost:4000/users/register"), body: json.encode(data), headers: <String, String>{
+      'Content-type' : 'application/json; charset=UTF-8'
+    });
+    print(response);
+    if(response.statusCode == 200) {
+      print(response.body);
+      return null;
+    }
+    return null;
   }
 }
