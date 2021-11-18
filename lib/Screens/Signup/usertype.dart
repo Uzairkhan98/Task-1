@@ -3,13 +3,27 @@ import 'package:flutter/material.dart';
 import '../../Widgets/topbar.dart';
 
 class Type extends StatefulWidget {
-  const Type({Key? key}) : super(key: key);
+
+  final formGlobalKey = GlobalKey < FormState > ();
+
+  final String userName;
+  final String password;
+  final String email;
+  final String fullName;
+  final String dob;
+  final String country;
+  final int gender;
+
+  Type(this.userName, this.password, this.email, this.fullName, this.dob, this.country, this.gender);
 
   @override
   _TypeState createState() => _TypeState();
 }
 
 class _TypeState extends State<Type> {
+
+  String _value = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +78,13 @@ class _TypeState extends State<Type> {
                               children: [
                                 const SizedBox(height:20),
                                 GestureDetector(
-                                  onTap: () => {print("I is being pressed")},
+                                  onTap: () {
+                                    setState(() {
+                                      // Toggle light when tapped.
+                                      _value = 'Student';
+                                    });
+                                  },
+
                                   child:  const CircleAvatar(
                                     radius: 55.0,
                                     backgroundImage: ExactAssetImage('assets/student.png'),
@@ -72,7 +92,12 @@ class _TypeState extends State<Type> {
                                 ),
                                 const SizedBox(height:20),
                                 GestureDetector(
-                                  onTap: () => {print("I is being pressed")},
+                                  onTap: () {
+                                    setState(() {
+                                      // Toggle light when tapped.
+                                      _value = 'Professional';
+                                    });
+                                  },
                                   child:  const CircleAvatar(
                                     radius: 55.0,
                                     backgroundImage: ExactAssetImage('assets/student.png'),
@@ -85,7 +110,12 @@ class _TypeState extends State<Type> {
                               children: [
                                 const SizedBox(height:20),
                                 GestureDetector(
-                                  onTap: () => {print("I is being pressed")},
+                                  onTap: () {
+                                    setState(() {
+                                      // Toggle light when tapped.
+                                      _value = 'Businessman';
+                                    });
+                                  },
                                   child:  const CircleAvatar(
                                     radius: 55.0,
                                     backgroundImage: ExactAssetImage('assets/student.png'),
@@ -93,7 +123,12 @@ class _TypeState extends State<Type> {
                                 ),
                                 const SizedBox(height:20),
                                 GestureDetector(
-                                  onTap: () => {print("I is being pressed")},
+                                  onTap: () {
+                                    setState(() {
+                                      // Toggle light when tapped.
+                                      _value = 'Others';
+                                    });
+                                  },
                                   child:  const CircleAvatar(
                                     radius: 55.0,
                                     backgroundImage: ExactAssetImage('assets/student.png'),
@@ -106,7 +141,7 @@ class _TypeState extends State<Type> {
                     Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                 child: ElevatedButton(
-                  onPressed: () =>  { },
+                  onPressed: () =>  { print(_value) },
                   child: Text ('Next'.toUpperCase()),
                   style: ElevatedButton.styleFrom(
                       primary: const Color(0xff1ba1a5),

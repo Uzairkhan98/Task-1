@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.4
+  date_time_picker: "^2.1.0"
   flutter_signin_button: ^2.0.0
 
 
