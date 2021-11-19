@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 
 class Dashboard extends StatefulWidget {
@@ -178,7 +178,10 @@ class _DashboardState extends State<Dashboard> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                     child: ElevatedButton(
-                      onPressed: () =>  { },
+                      onPressed: () =>  {
+                        print('Pressed button'),
+                        updateUser(dat.id, usernameController.text, fullnameController.text,widget.userData[1] )
+                      },
                       child: Text ('Update'.toUpperCase()),
                       style: ElevatedButton.styleFrom(
                           primary: const Color(0xff1ba1a5),
@@ -195,6 +198,26 @@ class _DashboardState extends State<Dashboard> {
         ],
       )
     );
+  }
+  updateUser(int id, userName, fullName, token ) async {
+    print('coming here');
+    Map data = {
+      'id' : id.toString(),
+      'username': userName,
+      'full_name': fullName,
+    };
+
+    var response = await http.put(Uri.parse("http://localhost:4000/users/update-user"), body: json.encode(data), headers: <String, String>{
+      'Content-type' : 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token',
+
+    });
+    print(response);
+    if(response.statusCode == 200) {
+      print(response.body);
+      return null;
+    }
+    return null;
   }
 }
 
