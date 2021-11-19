@@ -213,10 +213,15 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
     'Content-type' : 'application/json; charset=UTF-8'
     });
     if(response.statusCode == 200) {
-      final url = Uri.parse('http://localhost:4000/users/user-profile/$email');
-
       Map<String, dynamic> postResmap = jsonDecode(response.body);
       var tok = postRes.fromJson(postResmap);
+      var lab = postRess.fromJson(jsonDecode(jsonEncode(tok.data)));
+      print(lab.id);
+      // Object postRessmap = tok.data;
+
+      // var lab = postRess.fromJson(jsonEncode(postRessmap));
+
+      final url = Uri.parse('http://localhost:4000/users/user-profile/${lab.id}');
 
       print('Howdy, ${email}!');
 
@@ -224,7 +229,7 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Access-Control-Allow-Origin':'true',
-        'Authorization': 'Bearer ${tok.data}',
+        'Authorization': 'Bearer ${lab.token}',
       });
       Map<String, dynamic> postResmap2 = jsonDecode(res.body);
       var dat = postRes2.fromJson(postResmap2);
@@ -236,7 +241,7 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
 
 class postRes {
   final String message;
-  final String data;
+  final Object data;
 
   postRes(this.message, this.data);
 
@@ -247,6 +252,21 @@ class postRes {
   Map<String, dynamic> toJson() => {
     'message': message,
     'data': data,
+  };
+}
+class postRess {
+  final String token;
+  final int id;
+
+  postRess(this.token, this.id);
+
+  postRess.fromJson(Map<String, dynamic> json)
+      : token = json['token'],
+        id = json['id'];
+
+  Map<String, dynamic> toJson() => {
+    'token': token,
+    'id': id,
   };
 }
 
