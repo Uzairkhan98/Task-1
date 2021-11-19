@@ -26,6 +26,8 @@ class _TypeState extends State<Type> {
 
   String _value = '';
 
+  var a;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,8 +145,12 @@ class _TypeState extends State<Type> {
                     Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                 child: ElevatedButton(
-                  onPressed: () =>  {
-                    registerUser(widget.userName, widget.email, widget.password, widget.fullName, widget.dob, widget.gender, widget.country, _value)
+                  onPressed: ()  async =>  {
+                    a = await registerUser(widget.userName, widget.email, widget.password, widget.fullName, widget.dob, widget.gender, widget.country, _value),
+                    if(a == true) {
+                      Navigator.of(context).popUntil((route) => route.isFirst)
+                    }
+                    else {print('Registration unsuccessful')}
                   },
                   child: Text ('Next'.toUpperCase()),
                   style: ElevatedButton.styleFrom(
@@ -185,7 +191,7 @@ class _TypeState extends State<Type> {
     print(response);
     if(response.statusCode == 200) {
       print(response.body);
-      return null;
+      return true;
     }
     return null;
   }
