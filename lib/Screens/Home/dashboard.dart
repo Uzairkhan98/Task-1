@@ -99,6 +99,7 @@ class _DashboardState extends State<Dashboard> {
                   TextFormField(
                     textAlign: TextAlign.center,
                     controller: dobController,
+                    enabled: false,
                     decoration: InputDecoration.collapsed(
                       hintText: 'Date of Birth: ${dat.dob}',
                     ),
@@ -117,9 +118,11 @@ class _DashboardState extends State<Dashboard> {
                   TextFormField(
                     textAlign: TextAlign.center,
                     controller: countryController,
+                    enabled: false,
                     decoration: InputDecoration.collapsed(
                       hintText: 'Country: ${dat.country}',
                     ),
+
                     validator: (email) { },
                   ),
                   const Padding(
@@ -135,6 +138,7 @@ class _DashboardState extends State<Dashboard> {
                   TextFormField(
                     textAlign: TextAlign.center,
                     controller: genderController,
+                    enabled: false,
                     decoration: InputDecoration.collapsed(
                       hintText: 'Gender: ${dat.gender}',
                     ),
@@ -153,6 +157,7 @@ class _DashboardState extends State<Dashboard> {
                   TextFormField(
                     textAlign: TextAlign.center,
                     controller: usertypeController,
+                    enabled: false,
                     decoration: InputDecoration.collapsed(
                       hintText: 'User Type: ${dat.user_type}',
                     ),

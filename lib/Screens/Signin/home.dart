@@ -108,7 +108,7 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                             onPressed: () async => {
                               showLoaderDialog(context),
                               serveres = await signIn(emailController.text, passwordController.text),
-                              print(serveres.runtimeType),
+                              print(serveres),
                               Navigator.pop(context),
                               if(serveres != null) {
                                 Navigator.push(
