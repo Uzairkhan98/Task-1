@@ -21,6 +21,8 @@ class _DashboardState extends State<Dashboard> {
   TextEditingController genderController = TextEditingController();
   TextEditingController usertypeController = TextEditingController();
 
+  var a;
+
   @override
   Widget build(BuildContext context) {
     print(widget.userData[1]);
@@ -189,6 +191,26 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                    child: ElevatedButton(
+                      onPressed: () async =>  {
+                        a = await deactivateUser(dat.id, widget.userData[1]),
+                        print(a),
+                        if(a == true){
+                          print('Deactivation done'),
+                          Navigator.pop(context)
+                        }
+                        else print('Deactivation unsuccessful')
+
+                    },
+                      child: Text ('Deactivate user'.toUpperCase()),
+                      style: ElevatedButton.styleFrom(
+                          primary: const Color(0xffff0000),
+                          minimumSize: const Size(150, 40)
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -216,6 +238,24 @@ class _DashboardState extends State<Dashboard> {
     if(response.statusCode == 200) {
       print(response.body);
       return null;
+    }
+    return null;
+  }
+  deactivateUser(int id,  token ) async {
+    Map data = {
+      'id' : id.toString(),
+    };
+
+    var response = await http.put(Uri.parse("http://localhost:4000/users/deactivate-user"), body: json.encode(data), headers: <String, String>{
+      'Content-type' : 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token',
+
+    });
+    print(response);
+    print('user deactivated');
+    if(response.statusCode == 200) {
+      print(response.body);
+      return true;
     }
     return null;
   }
