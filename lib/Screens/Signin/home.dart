@@ -233,7 +233,7 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
       });
       Map<String, dynamic> postResmap2 = jsonDecode(res.body);
       var dat = postRes2.fromJson(postResmap2);
-      return dat.data;
+      return [dat.data, lab.token];
     }
     return null;
   }

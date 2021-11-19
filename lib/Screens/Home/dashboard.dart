@@ -23,8 +23,9 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    print('coming here');
-    Map<String, dynamic> temp = widget.userData[0];
+    print(widget.userData[1]);
+    Map<String, dynamic> temp = widget.userData[0][0];
+    print(temp);
     var dat = dataMap.fromJson(temp);
     print('cpoming here');
     print(dat);
