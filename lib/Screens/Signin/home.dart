@@ -209,7 +209,7 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
       'password': pass
     };
     http.Response res;
-    var response = await http.post(Uri.parse("http://localhost:4000/users/login"), body: json.encode(data), headers: <String, String>{
+    var response = await http.post(Uri.parse("http://10.0.2.2:4000/users/login"), body: json.encode(data), headers: <String, String>{
     'Content-type' : 'application/json; charset=UTF-8'
     });
     if(response.statusCode == 200) {
@@ -221,7 +221,7 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
 
       // var lab = postRess.fromJson(jsonEncode(postRessmap));
 
-      final url = Uri.parse('http://localhost:4000/users/user-profile/${lab.id}');
+      final url = Uri.parse('http://10.0.2.2:4000/users/user-profile/${lab.id}');
 
       print('Howdy, ${email}!');
 

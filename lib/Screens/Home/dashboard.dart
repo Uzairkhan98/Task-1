@@ -229,7 +229,7 @@ class _DashboardState extends State<Dashboard> {
       'full_name': fullName,
     };
 
-    var response = await http.put(Uri.parse("http://localhost:4000/users/update-user"), body: json.encode(data), headers: <String, String>{
+    var response = await http.put(Uri.parse("http://10.0.2.2:4000/users/update-user"), body: json.encode(data), headers: <String, String>{
       'Content-type' : 'application/json; charset=UTF-8',
       'Authorization': 'Bearer $token',
 
@@ -246,7 +246,7 @@ class _DashboardState extends State<Dashboard> {
       'id' : id.toString(),
     };
 
-    var response = await http.put(Uri.parse("http://localhost:4000/users/deactivate-user"), body: json.encode(data), headers: <String, String>{
+    var response = await http.put(Uri.parse("http://10.0.2.2:4000/users/deactivate-user"), body: json.encode(data), headers: <String, String>{
       'Content-type' : 'application/json; charset=UTF-8',
       'Authorization': 'Bearer $token',
 

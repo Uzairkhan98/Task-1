@@ -104,7 +104,7 @@ class _TypeState extends State<Type> {
                                   },
                                   child:  const CircleAvatar(
                                     radius: 55.0,
-                                    backgroundImage: ExactAssetImage('assets/professional.png'),
+                                    backgroundImage: ExactAssetImage('assets/professionals.png'),
                                   ),
                                 ),
                               ],
@@ -185,7 +185,7 @@ class _TypeState extends State<Type> {
       'user_type' : user_type
     };
 
-    var response = await http.post(Uri.parse("http://localhost:4000/users/register"), body: json.encode(data), headers: <String, String>{
+    var response = await http.post(Uri.parse("http://10.0.2.2:4000/users/register"), body: json.encode(data), headers: <String, String>{
       'Content-type' : 'application/json; charset=UTF-8'
     });
     print(response);
