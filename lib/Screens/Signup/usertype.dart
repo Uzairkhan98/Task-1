@@ -104,7 +104,7 @@ class _TypeState extends State<Type> {
                                   },
                                   child:  const CircleAvatar(
                                     radius: 55.0,
-                                    backgroundImage: ExactAssetImage('assets/student.png'),
+                                    backgroundImage: ExactAssetImage('assets/professional.png'),
                                   ),
                                 ),
                               ],
@@ -122,7 +122,7 @@ class _TypeState extends State<Type> {
                                   },
                                   child:  const CircleAvatar(
                                     radius: 55.0,
-                                    backgroundImage: ExactAssetImage('assets/student.png'),
+                                    backgroundImage: ExactAssetImage('assets/business.png'),
                                   ),
                                 ),
                                 const SizedBox(height:20),
@@ -135,7 +135,7 @@ class _TypeState extends State<Type> {
                                   },
                                   child:  const CircleAvatar(
                                     radius: 55.0,
-                                    backgroundImage: ExactAssetImage('assets/student.png'),
+                                    backgroundImage: ExactAssetImage('assets/others.png'),
                                   ),
                                 ),
                               ],
