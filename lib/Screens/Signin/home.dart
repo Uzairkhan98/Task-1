@@ -22,6 +22,7 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
   final formGlobalKey = GlobalKey < FormState > ();
 
   dynamic serveres;
+  var error;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   showLoaderDialog(BuildContext context){
@@ -42,7 +43,9 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
+      resizeToAvoidBottomInset : false,
+      body:
+      Form(
         key: formGlobalKey,
         child: Column(
           children: <Widget>[
@@ -98,6 +101,7 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                             if (isPasswordValid(password!)) {
                               return null;
                             } else {
+                              error = true;
                               return 'Enter a valid password';
                             }
                           },
@@ -107,16 +111,19 @@ class _SigninState extends State<Signin>  with InputValidationMixin{
                           child: ElevatedButton(
                             onPressed: () async => {
                               showLoaderDialog(context),
-                              serveres = await signIn(emailController.text, passwordController.text),
-                              print(serveres),
-                              Navigator.pop(context),
-                              if(serveres != null) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return Dashboard(serveres);
-                                  }),
-                                ),
+                              if(error!= true){
+                                serveres = await signIn(emailController.text,
+                                    passwordController.text),
+                                print(serveres),
+                                Navigator.pop(context),
+                                if(serveres != null) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return Dashboard(serveres);
+                                    }),
+                                  ),
+                                },
                               },
                             if (formGlobalKey.currentState!.validate()) {
                               // If the form is valid, display a snackbar. In the real world,

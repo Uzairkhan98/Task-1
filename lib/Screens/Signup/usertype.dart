@@ -25,11 +25,16 @@ class Type extends StatefulWidget {
 class _TypeState extends State<Type> {
 
   String _value = '';
+  var _color1 = const Color(0xffffffff);
+  var _color2 = const Color(0xffffffff);
+  var _color3 = const Color(0xffffffff);
+  var _color4 = const Color(0xffffffff);
 
   var a;
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -81,30 +86,58 @@ class _TypeState extends State<Type> {
                             Column(
                               children: [
                                 const SizedBox(height:20),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      // Toggle light when tapped.
-                                      _value = 'Student';
-                                    });
-                                  },
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    border: Border.all(
+                                      width: 5.0,
+                                      // assign the color to the border color
+                                      color: _color1,
+                                    ),
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        // Toggle light when tapped.
+                                        _value = 'Student';
+                                        _color1 = const Color(0xff1ba1a5);
+                                        _color2 = Colors.white;
+                                        _color3 = Colors.white;
+                                        _color4 = Colors.white;
+                                      });
+                                    },
 
-                                  child:  const CircleAvatar(
-                                    radius: 55.0,
-                                    backgroundImage: ExactAssetImage('assets/student.png'),
+                                    child:  const CircleAvatar(
+                                      radius: 55.0,
+                                      backgroundImage: ExactAssetImage('assets/student.png'),
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height:20),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      // Toggle light when tapped.
-                                      _value = 'Professional';
-                                    });
-                                  },
-                                  child:  const CircleAvatar(
-                                    radius: 55.0,
-                                    backgroundImage: ExactAssetImage('assets/professionals.png'),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    border: Border.all(
+                                      width: 5.0,
+                                      // assign the color to the border color
+                                      color: _color2,
+                                    ),
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        // Toggle light when tapped.
+                                        _value = 'Professional';
+                                        _color1 = Colors.white;
+                                        _color2 = const Color(0xff1ba1a5);
+                                        _color3 = Colors.white;
+                                        _color4 = Colors.white;
+                                      });
+                                    },
+                                    child:  const CircleAvatar(
+                                      radius: 55.0,
+                                      backgroundImage: ExactAssetImage('assets/professionals.png'),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -113,29 +146,57 @@ class _TypeState extends State<Type> {
                             Column(
                               children: [
                                 const SizedBox(height:20),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      // Toggle light when tapped.
-                                      _value = 'Businessman';
-                                    });
-                                  },
-                                  child:  const CircleAvatar(
-                                    radius: 55.0,
-                                    backgroundImage: ExactAssetImage('assets/business.png'),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    border: Border.all(
+                                      width: 5.0,
+                                      // assign the color to the border color
+                                      color: _color3,
+                                    ),
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        // Toggle light when tapped.
+                                        _value = 'Businessman';
+                                        _color1 = Colors.white;
+                                        _color2 = Colors.white;
+                                        _color3 = const Color(0xff1ba1a5);
+                                        _color4 = Colors.white;
+                                      });
+                                    },
+                                    child:  const CircleAvatar(
+                                      radius: 55.0,
+                                      backgroundImage: ExactAssetImage('assets/business.png'),
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height:20),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      // Toggle light when tapped.
-                                      _value = 'Others';
-                                    });
-                                  },
-                                  child:  const CircleAvatar(
-                                    radius: 55.0,
-                                    backgroundImage: ExactAssetImage('assets/others.png'),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    border: Border.all(
+                                      width: 5.0,
+                                      // assign the color to the border color
+                                      color: _color4,
+                                    ),
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        // Toggle light when tapped.
+                                        _value = 'Others';
+                                        _color1 = Colors.white;
+                                        _color2 = Colors.white;
+                                        _color3 = Colors.white;
+                                        _color4 = const Color(0xff1ba1a5);
+                                      });
+                                    },
+                                    child:  const CircleAvatar(
+                                      radius: 55.0,
+                                      backgroundImage: ExactAssetImage('assets/others.png'),
+                                    ),
                                   ),
                                 ),
                               ],

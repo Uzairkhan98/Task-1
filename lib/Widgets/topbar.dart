@@ -6,13 +6,13 @@ class expansionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 25,
+      flex: 40,
       child: Container(
         color: const Color(0xff1ba1a5),
         padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 30),
         child: SafeArea(
           child: Container(
-            color: Colors.grey,
+              child: Image.asset('assets/hysab.png')
           ),
         ),
       ),
